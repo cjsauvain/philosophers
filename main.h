@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:07:33 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/23 16:55:53 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:38:28 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ int			get_meals_status(t_thread *thread);
 
 //free.c
 void		ft_free(t_all *infos, int i);
+
 #endif
