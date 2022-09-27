@@ -5,63 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/15 14:22:45 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/23 16:31:39 by jsauvain         ###   ########.fr       */
+/*   Created: 2022/09/26 11:24:25 by jsauvain          #+#    #+#             */
+/*   Updated: 2022/09/26 11:55:04 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	initialize_thread_infos(t_all *infos, char **argv, int i)
+void	ft_usleep(t_thread *thread, int usleep)
 {
-	infos->threads[i].index = i;
-	if (infos->args == 5)
-		infos->threads[i].meals = ft_atoi(argv[5]);
-	else if (infos->args == 4)
-		infos->threads[i].meals = -1;
-	infos->threads[i].data = infos;
+	struct timeval	time;
+	int				time_0;
+
+	gettimeofday(&time, NULL);
+	time_0 = time.tv_sec * 1000 + time.tv_usec / 1000;
+	while (get_time(time_0) < usleep && !get_die_status(thread))
+		continue;
 }
 
-void	init_life_infos(t_all *infos, char **argv, int argc)
+int	get_time(int time_0)
 {
-	infos->die = 0;
-	infos->nb_philos = ft_atoi(argv[1]);
-	infos->to_die = ft_atoi(argv[2]);
-	infos->to_eat = ft_atoi(argv[3]);
-	infos->to_sleep = ft_atoi(argv[4]);
-	infos->args = argc - 1;
-	if (infos->args == 5)
-		infos->philo_meals = ft_atoi(argv[1]);
-	else if (infos->args == 4)
-		infos->philo_meals = -1;
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000 - time_0);
 }
 
-void	to_eat(t_thread *thread)
+void	print_message(t_thread *thread, char *color, char *str)
 {
-	mutex_lock(thread);
-	pthread_mutex_lock(&thread->data->mutex_time);
-	thread->time = get_time(0);
-	pthread_mutex_unlock(&thread->data->mutex_time);
-	print_message(thread, "\033[34;01m", "is eating");
-	if (thread->data->args == 5)
-		thread->meals--;
-	if (thread->meals == 0)
+	pthread_mutex_lock(&thread->data->mutex_message);
+	if (get_meals_status(thread) && !get_die_status(thread))
 	{
-		pthread_mutex_lock(&thread->data->mutex_meals);
-		thread->data->philo_meals -= 1;
-		pthread_mutex_unlock(&thread->data->mutex_meals);
+		printf("%s%d %d %s\033[00m\n",
+			color, get_time(thread->data->time), thread->index + 1, str);
 	}
-	usleep(thread->data->to_eat * 1000);
-	mutex_unlock(thread);
+	pthread_mutex_unlock(&thread->data->mutex_message);
 }
 
-void	to_sleep(t_thread *thread)
+void	exit_program(t_all *infos)
 {
-	print_message(thread, "\033[35;01m", "is sleeping");
-	usleep(thread->data->to_sleep * 1000);
-}
-
-void	to_think(t_thread *thread)
-{
-	print_message(thread, "\033[37;01m", "is thinking");
+	print_error_message("Error : malloc could not be done.\n");
+	ft_free(infos, 1);
 }

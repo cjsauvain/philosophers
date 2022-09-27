@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:32:49 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/23 16:45:52 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/26 11:39:25 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,6 @@ void	destroy_mutex(t_all *infos)
 	pthread_mutex_destroy(&infos->mutex_die);
 	pthread_mutex_destroy(&infos->mutex_message);
 	pthread_mutex_destroy(&infos->mutex_meals);
-}
-
-int	infos_mutex_init(t_all *infos)
-{
-	int	i;
-
-	i = 0;
-	infos->mutex_forks = malloc(infos->nb_philos * sizeof(pthread_mutex_t));
-	if (infos->mutex_forks == NULL)
-	{
-		exit_program(infos);
-		return (1);
-	}
-	while (i < infos->nb_philos)
-		pthread_mutex_init(&infos->mutex_forks[i++], NULL);
-	pthread_mutex_init(&infos->mutex_time, NULL);
-	pthread_mutex_init(&infos->mutex_die, NULL);
-	pthread_mutex_init(&infos->mutex_message, NULL);
-	pthread_mutex_init(&infos->mutex_meals, NULL);
-	return (0);
 }
 
 void	mutex_lock(t_thread *thread)
