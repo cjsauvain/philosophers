@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:24:25 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:55:04 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/27 09:44:49 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_usleep(t_thread *thread, int usleep)
 	gettimeofday(&time, NULL);
 	time_0 = time.tv_sec * 1000 + time.tv_usec / 1000;
 	while (get_time(time_0) < usleep && !get_die_status(thread))
-		continue;
+		continue ;
 }
 
 int	get_time(int time_0)
