@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 10:58:07 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:55:35 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 10:42:08 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	to_eat(t_thread *thread)
 	if (thread->meals == 0)
 	{
 		pthread_mutex_lock(&thread->data->mutex_meals);
-		thread->data->philo_meals -= 1;
+		thread->data->philo_meals--;
 		pthread_mutex_unlock(&thread->data->mutex_meals);
 	}
 	ft_usleep(thread, thread->data->to_eat);
@@ -39,5 +39,11 @@ void	to_sleep(t_thread *thread)
 
 void	to_think(t_thread *thread)
 {
-	print_message(thread, "\033[37;01m", "is thinking");
+	pthread_mutex_lock(&thread->data->mutex_message);
+	if (!get_die_status(thread))
+	{
+		printf("\033[37;01m%d %d is thinking\033[00m\n",
+			get_time(thread->data->time), thread->index + 1);
+	}
+	pthread_mutex_unlock(&thread->data->mutex_message);
 }

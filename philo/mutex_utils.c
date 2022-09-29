@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:32:49 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:39:25 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:13:21 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mutex_lock(t_thread *thread)
 		pthread_mutex_lock(&thread->data->mutex_forks[0]);
 		print_message(thread, "\033[36;01m", "has taken a fork");
 	}
-	else
+	else if (thread->index != thread->data->nb_philos - 1)
 	{
 		pthread_mutex_lock(&thread->data->mutex_forks[thread->index]);
 		print_message(thread, "\033[36;01m", "has taken a fork");
@@ -50,7 +50,7 @@ void	mutex_unlock(t_thread *thread)
 		pthread_mutex_unlock(&thread->data->mutex_forks[thread->index]);
 		pthread_mutex_unlock(&thread->data->mutex_forks[0]);
 	}
-	else
+	else if (thread->index != thread->data->nb_philos - 1)
 	{
 		pthread_mutex_unlock(&thread->data->mutex_forks[thread->index]);
 		pthread_mutex_unlock(&thread->data->mutex_forks[thread->index + 1]);

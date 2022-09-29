@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:07:33 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:55:18 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:11:59 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int			get_meals_status(t_thread *thread);
 
 //die.c
 void		thread_death(t_all *infos, int i);
-void		every_philos_ate(t_all *infos);
 void		*check_die(void *arg);
 
 //free.c

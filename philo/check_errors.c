@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:05:15 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:38:52 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:44:13 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	check_arguments(int argc, char **argv)
 			}
 			j++;
 		}
-		if (!ft_atoi(argv[i]))
+		if (((!ft_atoi(argv[i]) || ft_atoi(argv[i]) == -1) && argv[i + 1])
+			|| (!argv[i + 1] && ft_atoi(argv[i]) == -1))
 		{
 			print_error_message("Error : wrong argument value.\n");
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:13:36 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:39:44 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 10:36:02 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,19 @@ int	get_die_status(t_thread *thread)
 int	get_meals_status(t_thread *thread)
 {
 	pthread_mutex_lock(&thread->data->mutex_meals);
-	if (thread->data->philo_meals)
+	if (thread->data->philo_meals > 0)
 	{
 		pthread_mutex_unlock(&thread->data->mutex_meals);
 		return (1);
 	}
-	else
+	else if (!thread->data->philo_meals)
 	{
 		pthread_mutex_unlock(&thread->data->mutex_meals);
 		return (0);
+	}
+	else
+	{
+		pthread_mutex_unlock(&thread->data->mutex_meals);
+		return (-1);
 	}
 }

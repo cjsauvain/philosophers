@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:48:31 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/27 09:31:51 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:15:25 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,27 @@ void	*start_routine(void *arg)
 	pthread_mutex_lock(&thread->data->mutex_time);
 	thread->time = get_time(0);
 	pthread_mutex_unlock(&thread->data->mutex_time);
+	if (!get_meals_status(thread))
+		to_think(thread);
 	while (!get_die_status(thread) && get_meals_status(thread))
 	{
+		to_think(thread);
 		to_eat(thread);
 		to_sleep(thread);
-		to_think(thread);
 	}
 	return (arg);
 }
 
 void	one_philo(t_all *infos)
 {
-	printf("\033[36;01m%d 1 has taken a fork\n", get_time(infos->time));
-	usleep(infos->to_die * 1000);
-	printf("\033[31;01m%d 1 died\n", get_time(infos->time));
+	if (infos->philo_meals)
+	{
+		printf("\033[36;01m%d 1 has taken a fork\n", get_time(infos->time));
+		usleep(infos->to_die * 1000);
+		printf("\033[31;01m%d 1 died\n", get_time(infos->time));
+	}
+	else if (!infos->philo_meals)
+		printf("\033[37;01m%d 1 is thinking\033[00m\n", get_time(infos->time));
 }
 
 int	many_philos(t_all *infos, char **argv)

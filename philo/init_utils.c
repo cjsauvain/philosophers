@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:16:17 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:39:04 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:12:06 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	init_life_infos(t_all *infos, char **argv, int argc)
 	infos->to_eat = ft_atoi(argv[3]);
 	infos->to_sleep = ft_atoi(argv[4]);
 	infos->args = argc - 1;
-	if (infos->args == 5)
+	if (infos->args == 5 && ft_atoi(argv[5]))
 		infos->philo_meals = ft_atoi(argv[1]);
+	else if (infos->args == 5 && !ft_atoi(argv[5]))
+		infos->philo_meals = 0;
 	else if (infos->args == 4)
 		infos->philo_meals = -1;
 }

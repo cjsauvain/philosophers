@@ -6,7 +6,7 @@
 /*   By: jsauvain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 09:16:17 by jsauvain          #+#    #+#             */
-/*   Updated: 2022/09/26 11:38:56 by jsauvain         ###   ########.fr       */
+/*   Updated: 2022/09/29 11:53:22 by jsauvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ long int	ft_atoi(char *nptr)
 		nb = (nb * 10) + (nptr[i] - '0');
 		i++;
 	}
-	if (nb > 2147483647 || ft_strlen(nptr) > 10 || !nb || nptr[0] == '-'
+	if (nb > 2147483647 || ft_strlen(nptr) > 10 || nptr[0] == '-'
 		|| (nptr[0] == '0' && nptr[1]))
-		return (0);
+		return (-1);
 	return (nb);
 }
