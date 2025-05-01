@@ -11,7 +11,7 @@
 - gcc
 - Bibliothèque `pthread` (POSIX threads)
 
-## 🚀 Compilation && Execution
+## 📦 Compilation & 🚀 Exécution
 
 ```bash
 make
